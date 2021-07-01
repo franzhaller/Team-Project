@@ -12,9 +12,18 @@ dth= th(1,2) - th(1,1);
 [ii,io,il,ir] = BoundaryIndices(r,th);
 
 % TODO: CREATE DISCRETIZATION MATRICES WITH ONE-SIDED FINITE DIFFERENCES
+Dr_fw = spdiags([-1*e/dr 1*e/dr],[0 1],N,N);
+Dth_fw = spdiags([-1*e/dth 1*e/dth],[0 I],N,N);
+
+Dr_bw = spdiags([-1*e/dr 1*e/dr],[-1 0],N,N);
+Dth_bw = spdiags([-1*e/dth 1*e/dth],[-I 0],N,N);
 
 % TODO: REPLACE THE ROWS OF Dr AND Dth CORRESPONDING TO THE PROBLEMATIC
 % BOUNDARIES WITH THE MATCHING ROWS OF THE ONE-SIDED MATRICES
+Dr(ii,:)=Dr_fw(ii,:);
+Dr(io,:)=Dr_bw(io,:);
+Dth(il,:)=Dth_bw(il,:);
+Dth(ir,:)=Dth_fw(ir,:);
 
 end
 

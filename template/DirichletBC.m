@@ -6,8 +6,16 @@ function [A,b] = DirichletBC(A,b,alpha,iD)
 N = numel(b);
 I = speye(N);
 
+
 % TODO
-A(iD,:)=0;
-b(iD)= alpha(iD);
+%!!!!!!!!!!!!!!!! check I or 0 !!!!!!!!!!!!!!!
+A(iD,:)=I(iD,:);
+
+
+
+for i=1:length(iD)
+    b(i*length(iD)) = alpha(i);
+end
+
 end
 

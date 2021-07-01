@@ -11,7 +11,6 @@ dtheta = pi/(J-1);
 
 r= meshgrid(rc:dr:ro,1:J)';
 theta = meshgrid(0:dtheta:pi,1:I);
-
 end
 
 
