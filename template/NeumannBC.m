@@ -7,10 +7,9 @@ for i = iN'
     % TODO: IMPLEMENT NEUMANN BC
     
     % !!!!!!! vorzeichen iG überprüfen !!!!!!!
-
-    A(i,i-iG) = A(i,i-iG)+A(i-iG,i);
- 
     
+  
+    A(i,i-iG) = A(i,i-iG)+A(i-iG,i);
     b(i)=b(i)+ 2*A(i-iG,i)*dn*beta;
   
     if i+iG>0 && i+iG<size(A,2)

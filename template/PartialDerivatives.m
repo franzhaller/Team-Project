@@ -11,8 +11,9 @@ dth= theta(1,2) - theta(1,1);
 
 % TODO
 Dr = spdiags([-1*e/(2*dr) 1*e/(2*dr)],[-1 1],m,m);
-Dth = spdiags([-1*e/(2*dth) 1*e/(2*dth)],[-I I],m,m);
 Dr2 = spdiags( [ 1*e/dr^2 -2*e/dr^2 1*e/dr^2 ] , [ -1  0  1 ] , m,m );
+
+Dth = spdiags([-1*e/(2*dth) 1*e/(2*dth)],[-I I],m,m);
 Dth2 = spdiags( [ 1*e/dth^2 -2*e/dth^2 1*e/dth^2 ] , [ -I  0  I ] , m,m );
 end
 

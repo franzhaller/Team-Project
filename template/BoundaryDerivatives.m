@@ -22,8 +22,7 @@ Dth_bw = spdiags([-1*e/dth 1*e/dth],[-I 0],N,N);
 % BOUNDARIES WITH THE MATCHING ROWS OF THE ONE-SIDED MATRICES
 Dr(ii,:)=Dr_fw(ii,:);
 Dr(io,:)=Dr_bw(io,:);
-Dth(il,:)=Dth_bw(il,:);
-Dth(ir,:)=Dth_fw(ir,:);
-
+Dth(il,:)=Dth_fw(il,:);
+Dth(ir,:)=Dth_bw(ir,:);
 end
 
