@@ -1,5 +1,4 @@
 %testcase
-close all
 clc
 clear
 
@@ -10,42 +9,29 @@ ro = 3;
 I = 31;
 J = 31;
 
+x0=-2*ones(1,10);
+y0= linspace(0.1,1.9,10);
 
-%Discretization
+%-----------------------------------
 
+% %Discretization
+% [r,theta,dr,dth] = GenerateMesh(rc,ro,I,J);
+% [ii,io,il,ir] = BoundaryIndices(r,theta);
+
+%Compute Potential
 [phi,x,y,r,theta,Dr,Dth] = ComputePotential(rc,ro,I,J);
 [phi_a,psi_a] = AnalyticalPotential(rc,x,y);
 
+%Compute Velocity
 [uc,vc,up,vp] = ComputeVelocity(phi,r,theta);
 [u_a,v_a] = AnalyticalVelocity(rc,x,y);
 
+%Compute Pressure & Force
+[p] = ComputePressure(uc,vc);
+[Fx,Fy] = ComputeForce(p,r,theta);
 
-% contour plot
-figure(2)
-clevels = 30;
+%Compute Streamlines
+[strx,stry] = ComputeStreamlines(up,vp,r,theta,x0,y0);
 
-subplot(2,1,1)
-contour(x,y,phi,clevels)
-xlabel('X'), ylabel('Y')
-title('phi')
-
-subplot(2,1,2)
-contour(x,y,phi_a,clevels)
-xlabel('X'), ylabel('Y')
-title('phi_a')
-
-% velocity field plot
-figure(3)
-subplot(2,1,1)
-quiver(x,y,uc,vc)
-xlabel('X'), ylabel('Y'),
-title('velocity field')
-
-subplot(2,1,2)
-quiver(x,y,u_a,v_a)
-xlabel('X'), ylabel('Y')
-title('velocity field analytical')
-
-
-
+plotFcn(x,y,phi,phi_a,uc,vc,u_a,v_a,p,strx,stry)
 

@@ -26,6 +26,7 @@ b22=9/40;
 b32=-56/15;
 b42=-25360/2187;
 b52=-355/33;
+b62=0;
 b33=32/9;
 b43=64448/6561;
 b53=46732/5247;
@@ -43,14 +44,15 @@ e5=-17253/339200;
 e6=22/525;
 e7=-1/40;
 c1=5179/57600;
+c2=0;
 c3=7571/16695;
 c4=393/640;
 c5=-92097/339200;
 c6=187/2100;
 c7=1/40;
 
-while ~any(isnan(R),'all')
-
+while ~any(isnan(R),'all')     % if any entry in R is NaN 
+                               % -> logical 0 -> stop loop
     % Save trajectory
     nout = nout + 1;
     if nout>size(R,2)
@@ -61,16 +63,39 @@ while ~any(isnan(R),'all')
     TH(:,nout) = th;
     
     % Runge-Kutta 5
-    k1r =
-    k1th=
-    k2r =       % TODO: 
-    k2th=       %   IMPLEMENT
-    ...         %   RK5 7M
-    k7r =       %   HERE
-    k7th=
+    k1r = fu(th,r);
+    k1th= fv(th,r);
     
-    r   =     
-    th  =     
+    k2r = fu(th+dt*b11*k1th,r+dt*b11*k1r);
+    k2th = fv(th+dt*b11*k1th,r+dt*b11*k1r);
+    
+    k3r = fu(th+dt*(b21*k1th+b22*k2th),...
+        r+dt*(b21*k1r+b22*k2r));
+    k3th = fv(th+dt*(b21*k1th+b22*k2th),...
+        r+dt*(b21*k1r+b22*k2r));
+    
+    k4r = fu(th+dt*(b31*k1th+b32*k2th+b33*k3th),...
+        r+dt*(b31*k1r+b32*k2r+b33*k3r));
+    k4th = fv(th+dt*(b31*k1th+b32*k2th+b33*k3th),...
+        r+dt*(b31*k1r+b32*k2r+b33*k3r));
+    
+    k5r = fu(th+dt*(b41*k1th+b42*k2th+b43*k3th+b44*k4th),...
+        r+dt*(b41*k1r+b42*k2r+b43*k3r+b44*k4r));
+    k5th = fv(th+dt*(b41*k1th+b42*k2th+b43*k3th+b44*k4th),...
+        r+dt*(b41*k1r+b42*k2r+b43*k3r+b44*k4r));
+    
+    k6r = fu(th+dt*(b51*k1th+b52*k2th+b53*k3th+b54*k4th+b55*k5th),...
+        r+dt*(b51*k1r+b52*k2r+b53*k3r+b54*k4r+b55*k5r));  
+    k6th = fv(th+dt*(b51*k1th+b52*k2th+b53*k3th+b54*k4th+b55*k5th),...
+        r+dt*(b51*k1r+b52*k2r+b53*k3r+b54*k4r+b55*k5r));      
+    
+    k7r = fu(th+dt*(b61*k1th+b62*k2th+b63*k3th+b64*k4th+b65*k5th+b66*k6th),...
+        r+dt*(b61*k1r+b62*k2r+b63*k3r+b64*k4r+b65*k5r+b66*k6r));        
+    k7th = fv(th+dt*(b61*k1th+b62*k2th+b63*k3th+b64*k4th+b65*k5th+b66*k6th),...
+        r+dt*(b61*k1r+b62*k2r+b63*k3r+b64*k4r+b65*k5r+b66*k6r));     
+       
+    r   =  r + dt*(c1*k1r+c2*k2r+c3*k3r+c4*k4r+c5*k5r+c6*k6r+c7*k7r);
+    th  =  th + dt*(c1*k1th+c2*k2th+c3*k3th+c4*k4th+c5*k5th+c6*k6th+c7*k7th);   
     
     % Estimate error
     err = norm(e1*k1r +e3*k3r +e4*k4r +e5*k5r +e6*k6r +e7*k7r )/norm(r) ...

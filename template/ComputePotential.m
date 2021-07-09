@@ -18,7 +18,6 @@ b = sparse(I*J,1);
 [A,b] = DirichletBC(A,b,x(io),io);
 
 phi = reshape( A\b ,I,J);
-A(ii(2),:)
 
 end
 
