@@ -9,7 +9,7 @@ figure(2);
 subplot(1,2,1);
 
 % TODO: PLOT VELOCITY PROFILE
-
+plot(u(i),y(i))
 title('Velocity profile at x=0');
 grid on;
 

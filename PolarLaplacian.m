@@ -4,6 +4,7 @@ function [A] = PolarLaplacian(r,Dr,Dr2,Dth2)
 %   approximation of the Laplace operator in polar coordinates
 
 % TODO
+% Implementing the equation (13) from the script:
 A = r(:).^-1.*Dr + Dr2 + r(:).^-2.*Dth2;
 end
 

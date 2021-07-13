@@ -1,7 +1,9 @@
 function [R,TH] = myode45(fu,fv,r0,th0)
 %UNTITLED7 Summary of this function goes here
 %   Detailed explanation goes here
-% 
+% We implemented coefficients and parameters provided by the
+% script (23). Finally we optain R and TH, the loop stops if any entry in R
+% is NaN.
 
 
 tol   = 1e-6;
