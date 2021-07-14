@@ -5,7 +5,6 @@ function [R,TH] = myode45(fu,fv,r0,th0)
 % script (23). Finally we optain R and TH, the loop stops if any entry in R
 % is NaN.
 
-
 tol   = 1e-6;
 dt    = 2e-1;
 dtmax = 2e-1;
